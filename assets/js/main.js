@@ -1,3 +1,4 @@
+/**
  * Magdy & Abeer Wedding Invitation — Main JS
  */
 
