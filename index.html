@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magdy & Abeer — Engagement Invitation 💍</title>
+
+    <!-- SEO -->
+    <meta name="description" content="You are cordially invited to the engagement of Magdy & Abeer on Friday, September 12, 2026 at New Rondin Hall.">
+    <meta property="og:title" content="Magdy & Abeer — Engagement Invitation 💍">
+    <meta property="og:description" content="Join us to celebrate our love on September 12, 2026 at New Rondin Hall.">
+    <meta property="og:image" content="assets/images/couple.jpg">
+    <meta property="og:type" content="website">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <!-- Canvas background -->
+    <canvas id="sparkle-canvas"></canvas>
+
+    <!-- Music Toggle -->
+    <button id="music-toggle" class="music-btn" aria-label="Toggle Music">
+        <i class="fa-solid fa-music"></i>
+    </button>
+
+    <!-- Welcome / Envelope Screen -->
+    <div id="welcome-modal" class="welcome-overlay">
+        <div class="envelope-card">
+            <div class="wax-seal">
+                <i class="fa-solid fa-heart"></i>
+            </div>
+            <div class="envelope-header">
+                <span class="sub-title">You are cordially invited to the Engagement of</span>
+                <h1 class="couple-names">Magdy & Abeer</h1>
+                <p class="envelope-desc">We request the pleasure of your company to celebrate our love</p>
+            </div>
+            <button id="open-invitation-btn" class="open-btn">
+                <span>Open Invitation</span>
+                <i class="fa-solid fa-envelope-open-text"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="invitation-wrapper hidden">
+
+        <!-- Hero Section -->
+        <section class="hero-section reveal">
+            <div class="floral-frame">
+
+                <!-- Couple Photo -->
+                <div class="couple-photo-wrap">
+                    <div class="couple-photo-ring">
+                        <img src="assets/images/couple.jpg" alt="Magdy & Abeer" class="couple-photo" id="couple-img">
+                    </div>
+                    <div class="photo-shimmer"></div>
+                </div>
+
+                <div class="event-tag">ENGAGEMENT INVITATION</div>
+
+                <h2 class="main-names">
+                    <span class="groom">Magdy</span>
+                    <span class="ampersand">&</span>
+                    <span class="bride">Abeer</span>
+                </h2>
+
+                <p class="hero-quote">"Two souls, one love — forever begins today" ✨</p>
+
+                <!-- Date Pill -->
+                <div class="hero-date-pill">
+                    <span><i class="fa-regular fa-calendar-heart"></i> Friday, September 12, 2026</span>
+                    <span class="dot">•</span>
+                    <span><i class="fa-regular fa-clock"></i> 8:00 PM</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Countdown + Venue -->
+        <section class="info-grid-section">
+
+            <!-- Countdown -->
+            <div class="card timer-card reveal">
+                <h2 class="card-title"><i class="fa-regular fa-hourglass-half"></i> Counting Down To The Big Day</h2>
+                <div class="timer-grid">
+                    <div class="time-card">
+                        <span id="days" class="time-num">00</span>
+                        <span class="time-label">Days</span>
+                    </div>
+                    <div class="time-card">
+                        <span id="hours" class="time-num">00</span>
+                        <span class="time-label">Hours</span>
+                    </div>
+                    <div class="time-card">
+                        <span id="minutes" class="time-num">00</span>
+                        <span class="time-label">Mins</span>
+                    </div>
+                    <div class="time-card">
+                        <span id="seconds" class="time-num">00</span>
+                        <span class="time-label">Secs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location -->
+            <div class="card location-card reveal">
+                <h2 class="card-title"><i class="fa-solid fa-location-dot"></i> Date & Location</h2>
+
+                <div class="venue-info">
+                    <div class="info-row">
+                        <i class="fa-solid fa-building-columns icon"></i>
+                        <div>
+                            <h3>New Rondin Hall 🏛️</h3>
+                            <p class="sub-detail">A night to remember</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="https://share.google/fPNR0g3Z4AszuPDgH"
+                       target="_blank" rel="noopener noreferrer" class="btn btn-gold">
+                        <i class="fa-solid fa-map-location-dot"></i> Open Google Maps
+                    </a>
+                    <button id="add-to-calendar-btn" class="btn btn-outline">
+                        <i class="fa-regular fa-calendar-plus"></i> Add to Calendar
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Footer -->
+        <footer class="invitation-footer reveal">
+            <p class="footer-names">Magdy & Abeer</p>
+            <p class="footer-copy">We can't wait to celebrate with you! 💍</p>
+        </footer>
+
+    </main>
+
+    <!-- Toast -->
+    <div id="toast" class="toast hidden">
+        <span id="toast-message"></span>
+    </div>
+
+    <!-- JS -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

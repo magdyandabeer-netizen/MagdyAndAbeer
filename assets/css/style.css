@@ -1,0 +1,567 @@
+/* ==========================================================================
+   Magdy & Abeer Engagement Invitation — Ivory & Gold Palette
+   ========================================================================== */
+
+:root {
+    /* Beige / White / Gold Palette */
+    --ivory:        #F9F4EC;
+    --warm-white:   #FFFFFF;
+    --sand:         #C9A96E;
+    --gold:         #B8893A;
+    --gold-light:   #E2C27D;
+    --beige-mid:    #DDD0B8;
+    --beige-dark:   #A89070;
+    --text-dark:    #3B2D1F;
+    --text-muted:   #7A6650;
+    --text-light:   #F9F4EC;
+
+    --bg-main:      #1E1810;
+    --card-bg:      rgba(255, 251, 245, 0.97);
+
+    --gold-gradient:   linear-gradient(135deg, #B8893A 0%, #E2C27D 50%, #C9A96E 100%);
+    --ivory-gradient:  linear-gradient(160deg, #2A1F14 0%, #1E1810 100%);
+    --soft-shadow:     0 12px 35px rgba(30, 18, 8, 0.22);
+    --gold-glow:       0 0 28px rgba(201, 169, 110, 0.35);
+
+    --font-heading: 'Great Vibes', cursive;
+    --font-serif:   'Cormorant Garamond', serif;
+    --font-body:    'Plus Jakarta Sans', sans-serif;
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 15px;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-dark);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* ── Canvas Background ─────────────────────────── */
+#sparkle-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ── Music Button ──────────────────────────────── */
+.music-btn {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 200;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--gold-gradient);
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(184, 137, 58, 0.5);
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+}
+
+.music-btn:hover { transform: scale(1.12); }
+.music-btn.playing i { animation: musicSpin 2.4s linear infinite; }
+
+@keyframes musicSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* ── Welcome Overlay ───────────────────────────── */
+.welcome-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(ellipse at center, #2D2012 0%, #0F0B06 100%);
+    padding: 20px;
+    transition: opacity 0.55s ease, visibility 0.55s ease;
+}
+
+.welcome-overlay.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.envelope-card {
+    background: var(--card-bg);
+    border-radius: 28px;
+    padding: 38px 28px 32px;
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+    box-shadow: var(--soft-shadow), 0 0 60px rgba(201,169,110,0.15);
+    border: 1px solid rgba(201,169,110,0.3);
+    animation: springPop 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+.wax-seal {
+    width: 56px;
+    height: 56px;
+    background: var(--gold-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow: var(--gold-glow);
+    font-size: 1.4rem;
+    color: #fff;
+    animation: heartbeat 2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%,100% { transform: scale(1); }
+    14%      { transform: scale(1.15); }
+    28%      { transform: scale(1); }
+    42%      { transform: scale(1.08); }
+}
+
+.sub-title {
+    display: block;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.couple-names {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+    margin-bottom: 10px;
+}
+
+.envelope-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 26px;
+    font-style: italic;
+}
+
+/* Open Invitation Button */
+.open-btn {
+    background: var(--gold-gradient);
+    border: none;
+    padding: 15px 32px;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 25px rgba(184,137,58,0.5);
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+    will-change: transform;
+    position: relative;
+    overflow: hidden;
+}
+
+.open-btn:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 14px 32px rgba(184,137,58,0.65);
+}
+
+.open-btn:active { transform: translateY(0) scale(0.97); }
+
+.open-btn.loading { pointer-events: none; opacity: 0.85; }
+
+/* Heart burst */
+.heart-burst-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.floating-heart {
+    position: absolute;
+    font-size: 1.6rem;
+    animation: heartFloat 1.4s ease-out forwards;
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+@keyframes heartFloat {
+    0%   { opacity:1; transform:translateY(0) scale(0.5) rotate(var(--rot)); }
+    50%  { opacity:1; transform:translateY(-120px) scale(1.2) rotate(calc(var(--rot) + 15deg)); }
+    100% { opacity:0; transform:translateY(-220px) scale(0.8) rotate(calc(var(--rot) - 20deg)); }
+}
+
+.open-btn .btn-ripple {
+    position: absolute;
+    border-radius: 50%;
+    width: 10px; height: 10px;
+    background: rgba(255,255,255,0.5);
+    transform: scale(0);
+    animation: btnRipple 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes btnRipple { to { transform: scale(30); opacity:0; } }
+
+/* ── Main Container ────────────────────────────── */
+.invitation-wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px 14px 40px;
+}
+
+.invitation-wrapper.hidden { display: none; }
+
+/* ── Scroll Reveal ─────────────────────────────── */
+.reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+                transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+
+.reveal.active { opacity:1; transform:translateY(0); }
+
+/* ── Hero Section ──────────────────────────────── */
+.hero-section {
+    text-align: center;
+    padding: 28px 0 10px;
+}
+
+.floral-frame { display:flex; flex-direction:column; align-items:center; gap:14px; }
+
+/* Couple Photo */
+.couple-photo-wrap {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 4px;
+}
+
+.couple-photo-ring {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    padding: 4px;
+    background: var(--gold-gradient);
+    box-shadow: var(--gold-glow), 0 8px 32px rgba(0,0,0,0.35);
+    animation: photoFloat 4s ease-in-out infinite;
+}
+
+@keyframes photoFloat {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+}
+
+.couple-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    border: 3px solid var(--ivory);
+    animation: photoReveal 1.2s cubic-bezier(0.16,1,0.3,1) both 0.3s;
+}
+
+@keyframes photoReveal {
+    from { opacity:0; transform:scale(0.85); }
+    to   { opacity:1; transform:scale(1); }
+}
+
+/* Shimmer ring around photo */
+.photo-shimmer {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0%,
+        rgba(201,169,110,0.6) 25%,
+        transparent 50%,
+        rgba(226,194,125,0.4) 75%,
+        transparent 100%
+    );
+    animation: shimmerSpin 3s linear infinite;
+    z-index: -1;
+}
+
+@keyframes shimmerSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+.event-tag {
+    font-size: 0.68rem;
+    letter-spacing: 4px;
+    color: var(--sand);
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: var(--font-body);
+}
+
+.main-names {
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    line-height: 1.05;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 2px 8px rgba(184,137,58,0.3));
+}
+
+.ampersand {
+    font-family: var(--font-serif);
+    font-size: 2.8rem;
+    font-style: italic;
+    color: var(--sand);
+    -webkit-text-fill-color: var(--sand);
+    margin: 0 6px;
+}
+
+.hero-quote {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--beige-mid);
+    font-style: italic;
+    max-width: 320px;
+}
+
+.hero-date-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,251,245,0.1);
+    border: 1px solid rgba(201,169,110,0.35);
+    border-radius: 50px;
+    padding: 9px 20px;
+    font-size: 0.85rem;
+    color: var(--ivory);
+    font-weight: 500;
+    backdrop-filter: blur(6px);
+}
+
+.hero-date-pill i { color: var(--sand); }
+.dot { color: var(--sand); }
+
+/* ── Info Grid ─────────────────────────────────── */
+.info-grid-section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+/* ── Card ──────────────────────────────────────── */
+.card {
+    background: var(--card-bg);
+    border-radius: 22px;
+    padding: 22px 20px;
+    box-shadow: var(--soft-shadow);
+    border: 1px solid rgba(201,169,110,0.18);
+}
+
+.card-title {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-title i { color: var(--gold); }
+
+/* ── Timer Card ────────────────────────────────── */
+.timer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.time-card {
+    background: var(--ivory-gradient, linear-gradient(160deg, #2A1F14 0%, #1E1810 100%));
+    border-radius: 14px;
+    padding: 14px 6px;
+    text-align: center;
+    border: 1px solid rgba(201,169,110,0.2);
+}
+
+.time-num {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 700;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+}
+
+.time-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    display: block;
+}
+
+/* ── Location Card ─────────────────────────────── */
+.venue-info { margin-bottom: 16px; }
+
+.info-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.info-row .icon { color: var(--gold); font-size: 1.2rem; margin-top: 2px; }
+
+.info-row h3 {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    margin-bottom: 2px;
+}
+
+.sub-detail { font-size: 0.85rem; color: var(--text-muted); }
+
+/* ── Buttons ───────────────────────────────────── */
+.action-buttons { display: flex; flex-direction: column; gap: 10px; }
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px 20px;
+    border-radius: 50px;
+    font-size: 0.96rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+    border: none;
+    will-change: transform;
+    font-family: var(--font-body);
+}
+
+.btn-gold {
+    background: var(--gold-gradient);
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(184,137,58,0.35);
+}
+
+.btn-gold:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 24px rgba(184,137,58,0.5);
+}
+
+.btn-gold:active { transform: translateY(0) scale(0.97); }
+
+.btn-outline {
+    background: transparent;
+    color: var(--gold);
+    border: 1.5px solid var(--sand);
+}
+
+.btn-outline:hover {
+    background: rgba(201,169,110,0.1);
+    transform: translateY(-2px);
+}
+
+.btn-outline:active { transform: translateY(0) scale(0.97); }
+
+.btn-block { width: 100%; }
+
+/* ── Footer ────────────────────────────────────── */
+.invitation-footer {
+    text-align: center;
+    padding: 35px 0 10px;
+    margin-top: 25px;
+}
+
+.footer-names {
+    font-family: var(--font-heading);
+    font-size: 2.6rem;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.footer-copy {
+    color: var(--beige-mid);
+    font-size: 0.9rem;
+    margin-top: -4px;
+}
+
+/* ── Toast ─────────────────────────────────────── */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold-gradient);
+    color: #fff;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    z-index: 1000;
+    transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+
+.toast.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, 15px);
+}
+
+/* ── Keyframes ─────────────────────────────────── */
+@keyframes springPop {
+    0%   { opacity:0; transform:scale(0.85) translateY(20px); }
+    100% { opacity:1; transform:scale(1) translateY(0); }
+}
+
+@keyframes fadeInSlide {
+    0%   { opacity:0; transform:translateY(12px); }
+    100% { opacity:1; transform:translateY(0); }
+}
