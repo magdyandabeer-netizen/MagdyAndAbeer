@@ -1,5 +1,4 @@
-/**
- * Magdy & Abeer Engagement Invitation — Main JS
+ * Magdy & Abeer Wedding Invitation — Main JS
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -196,8 +195,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ── Add to Calendar ───────────────────────────────
     addCalBtn.addEventListener('click', () => {
-        const title    = encodeURIComponent('Magdy & Abeer Engagement 💍✨');
-        const details  = encodeURIComponent('Join us to celebrate the engagement of Magdy & Abeer at New Rondin Hall.');
+        const title    = encodeURIComponent('Magdy & Abeer Wedding 💍✨');
+        const details  = encodeURIComponent('Join us to celebrate the wedding of Magdy & Abeer at New Rondin Hall.');
         const location = encodeURIComponent('New Rondin Hall');
         const start    = '20260912T200000';
         const end      = '20260912T235900';
