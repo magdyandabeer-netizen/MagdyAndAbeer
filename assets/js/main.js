@@ -9,8 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContent   = document.getElementById('main-content');
     const musicBtn      = document.getElementById('music-toggle');
     const addCalBtn     = document.getElementById('add-to-calendar-btn');
+    const bgAudio       = document.getElementById('bg-music');
     const toast         = document.getElementById('toast');
     const toastMessage  = document.getElementById('toast-message');
+
+    // Set initial volume for background track
+    if (bgAudio) {
+        bgAudio.volume = 0.6;
+    }
 
     // ── Open Invitation (Heart Burst) ────────────────
     openBtn.addEventListener('click', (e) => {
@@ -72,32 +78,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ── Background Music ──────────────────────────────
-    let audioCtx, gainNode, source;
-    let isPlaying = false;
+    function playMusic() {
+        if (!bgAudio) return;
 
-    async function playMusic() {
-        try {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                gainNode = audioCtx.createGain();
-                gainNode.gain.value = 0.4;
-                gainNode.connect(audioCtx.destination);
-            }
-            if (audioCtx.state === 'suspended') await audioCtx.resume();
+        bgAudio.play().then(() => {
             musicBtn.classList.add('playing');
-            isPlaying = true;
-        } catch(e) { console.log('Audio error:', e); }
+        }).catch(err => {
+            console.log('Audio autoplay prevented:', err);
+        });
     }
 
     musicBtn.addEventListener('click', () => {
-        if (isPlaying) {
-            if (audioCtx) audioCtx.suspend();
-            musicBtn.classList.remove('playing');
-            isPlaying = false;
-            showToast('Music paused 🔇');
-        } else {
-            playMusic();
+        if (!bgAudio) return;
+
+        if (bgAudio.paused) {
+            bgAudio.play();
+            musicBtn.classList.add('playing');
             showToast('Music playing 🎵');
+        } else {
+            bgAudio.pause();
+            musicBtn.classList.remove('playing');
+            showToast('Music paused 🔇');
         }
     });
 
