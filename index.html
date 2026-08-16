@@ -20,6 +20,31 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <!-- Firebase Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <!-- Firebase Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCwktfIaG6ut4aAai76y9dfCrLNqZoOUno",
+        authDomain: "magdy-d1668.firebaseapp.com",
+        projectId: "magdy-d1668",
+        storageBucket: "magdy-d1668.firebasestorage.app",
+        messagingSenderId: "281519324986",
+        appId: "1:281519324986:web:99973d967981279bae1a03",
+        measurementId: "G-0Z7762PXDE"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+      firebase.analytics();
+    </script>
+
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -139,6 +164,52 @@
                 </div>
             </div>
 
+        </section>
+
+        <!-- Guestbook / Leave a Wish for the Couple -->
+        <section class="guestbook-section card reveal">
+            <h2 class="card-title"><i class="fa-solid fa-heart-circle-plus"></i> Leave a Wish for Magdy & Abeer</h2>
+            <p class="section-subtitle">Share your warm wishes and blessings with the couple</p>
+
+            <form id="wish-form" class="wish-form">
+                <div class="form-group">
+                    <input type="text" id="wish-author" required placeholder="Your Name" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <textarea id="wish-text" rows="3" required placeholder="Write your sweet note or blessing here..." class="form-control"></textarea>
+                </div>
+
+                <!-- Secret Toggle -->
+                <label class="secret-toggle" id="secret-label">
+                    <input type="checkbox" id="secret-checkbox">
+                    <span class="secret-slider">
+                        <span class="secret-knob">
+                            <i class="fa-solid fa-lock-open secret-icon-open"></i>
+                            <i class="fa-solid fa-lock secret-icon-locked"></i>
+                        </span>
+                    </span>
+                    <span class="secret-label-text">
+                        <span class="secret-public">Public wish — visible on the page</span>
+                        <span class="secret-private">Secret message — only we will read it 🔒</span>
+                    </span>
+                </label>
+
+                <button type="submit" class="btn btn-gold btn-block">
+                    <i class="fa-solid fa-paper-plane"></i> Send Wish &amp; Blessing ✨
+                </button>
+            </form>
+
+            <div id="wishes-list" class="wishes-grid">
+                <!-- Wishes will be displayed here dynamically -->
+            </div>
+
+            <!-- Show More Button -->
+            <button id="show-more-btn" class="show-more-btn" style="display:none;">
+                <i class="fa-solid fa-chevron-down"></i>
+                <span id="show-more-text">Show More</span>
+                <span id="wishes-count" class="wishes-badge">0</span>
+            </button>
         </section>
 
         <!-- Footer -->

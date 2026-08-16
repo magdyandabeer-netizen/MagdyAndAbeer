@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const bgAudio       = document.getElementById('bg-music');
     const toast         = document.getElementById('toast');
     const toastMessage  = document.getElementById('toast-message');
+    const wishForm      = document.getElementById('wish-form');
+    const wishesList    = document.getElementById('wishes-list');
 
     // Set initial volume for background track
     if (bgAudio) {
@@ -194,6 +196,137 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
+
+    // ── Guestbook & Wishes Form ───────────────────────
+    if (wishForm && wishesList) {
+        loadWishes();
+
+        const submitBtn = wishForm.querySelector('button[type="submit"]');
+        const submitBtnOriginalHTML = submitBtn.innerHTML;
+
+        wishForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const author    = document.getElementById('wish-author').value.trim();
+            const text      = document.getElementById('wish-text').value.trim();
+            const isSecret  = document.getElementById('secret-checkbox').checked;
+
+            if (!author || !text) return;
+
+            // --- Loading state: shimmer + bouncing dots ---
+            submitBtn.classList.add('sending');
+            submitBtn.innerHTML = `
+                <i class="fa-solid fa-paper-plane"></i>
+                Sending
+                <span class="sending-dots">
+                    <span></span><span></span><span></span>
+                </span>
+            `;
+
+            saveWish(author, text, isSecret)
+                .then(() => {
+                    // --- Success state: green pop ---
+                    submitBtn.classList.remove('sending');
+                    submitBtn.classList.add('sent');
+
+                    if (isSecret) {
+                        submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Secret Sent! 🔒';
+                        showToast('Your secret message was sent! Only we will read it 🔒');
+                    } else {
+                        submitBtn.innerHTML = '<i class="fa-solid fa-heart"></i> Wish Sent! 💕';
+                        showToast('Thank you for your sweet wish! ✨');
+                    }
+
+                    wishForm.reset();
+
+                    // Restore button after 2.2s
+                    setTimeout(() => {
+                        submitBtn.classList.remove('sent');
+                        submitBtn.innerHTML = submitBtnOriginalHTML;
+                    }, 2200);
+                })
+                .catch(() => {
+                    submitBtn.classList.remove('sending');
+                    submitBtn.innerHTML = submitBtnOriginalHTML;
+                    showToast('Something went wrong, please try again 😔');
+                });
+        });
+
+        function saveWish(author, note, isSecret = false) {
+            return db.collection('wishes').add({
+                author:    author,
+                note:      note,
+                isSecret:  isSecret,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+        }
+
+        function loadWishes() {
+            const VISIBLE_LIMIT = 5;
+            const showMoreBtn  = document.getElementById('show-more-btn');
+            const showMoreText = document.getElementById('show-more-text');
+            const countBadge   = document.getElementById('wishes-count');
+            let allWishes      = [];
+            let isExpanded     = false;
+
+            function renderWishes() {
+                wishesList.innerHTML = '';
+
+                allWishes.forEach((data, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'wish-card';
+
+                    if (!isExpanded && index >= VISIBLE_LIMIT) {
+                        card.classList.add('wish-hidden');
+                    }
+
+                    card.innerHTML = `
+                        <p class="wish-message">"${escapeHtml(data.note)}"</p>
+                        <span class="wish-name">— ${escapeHtml(data.author)}</span>
+                    `;
+                    wishesList.appendChild(card);
+                });
+
+                const total = allWishes.length;
+
+                if (total > VISIBLE_LIMIT) {
+                    showMoreBtn.style.display = 'flex';
+                    countBadge.textContent = total;
+
+                    if (isExpanded) {
+                        showMoreText.textContent = 'Show Less';
+                        showMoreBtn.classList.add('expanded');
+                    } else {
+                        showMoreText.textContent = `Show More`;
+                        showMoreBtn.classList.remove('expanded');
+                    }
+                } else {
+                    showMoreBtn.style.display = 'none';
+                }
+            }
+
+            showMoreBtn.addEventListener('click', () => {
+                isExpanded = !isExpanded;
+                renderWishes();
+                if (!isExpanded) {
+                    document.querySelector('.guestbook-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+
+            // Real-time listener: only show PUBLIC wishes
+            db.collection('wishes').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
+                allWishes = snapshot.docs
+                    .map(doc => doc.data())
+                    .filter(d => !d.isSecret);
+                renderWishes();
+            });
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
+        }
+    }
 
     // ── Add to Calendar ───────────────────────────────
     addCalBtn.addEventListener('click', () => {
